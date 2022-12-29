@@ -8,12 +8,10 @@ else
 fi
 
 # Do not change code above this line. Use the PSQL variable above to query your database.
-TRUNCATE games RESTART IDENTITY;
 cat games.csv | while IFS="," read YEAR ROUND WINNER OPPO WINNER_GOALS OPPO_GOALS
 do
   if [[ $YEAR != "year" ]]
   then
-    echo "$YEAR $ROUND $WINNER $OPPO $WINNER_GOALS $OPPO_GOALS"
     WINNER_ID=$($PSQL "SELECT team_id FROM teams WHERE name='$WINNER'")
     if [[ -z $WINNER_ID ]]
     then
